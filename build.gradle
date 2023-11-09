@@ -26,8 +26,10 @@ dependencies {
 	implementation('com.h2database:h2')
 	implementation('org.springframework.session:spring-session-jdbc')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+	implementation 'com.google.cloud:google-cloud-language:2.31.0'
 }
 
-tasks.named('test') {
+test {
 	useJUnitPlatform()
 }
