@@ -22,24 +22,24 @@ public class DataNLP {
         }
     }
 
-    public static void main(String... args) throws Exception {
-        // Instantiates a client
-        String text = "12월 21일 오후 5시에 회의실에서 캡스톤디자인 회의가 있어.";
-        try (LanguageServiceClient language = LanguageServiceClient.create()) {
-            Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
-            List<Entity> entitiesList = language.analyzeEntities(doc).getEntitiesList();
-
-            for (Entity entity : entitiesList) {
-                for (EntityMention mention : entity.getMentionsList()) {
-                    System.out.println(entity.getType());
+//    public static void main(String... args) throws Exception {
+//        // Instantiates a client
+//        String text = "12월 21일 오후 5시에 회의실에서 캡스톤디자인 회의가 있어.";
+//        try (LanguageServiceClient language = LanguageServiceClient.create()) {
+//            Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
+//            List<Entity> entitiesList = language.analyzeEntities(doc).getEntitiesList();
+//
+//            for (Entity entity : entitiesList) {
+//                for (EntityMention mention : entity.getMentionsList()) {
+//                    System.out.println(entity.getType());
 //                    System.out.println(entity.getMetadataMap().get("day"));
 //                    System.out.println(entity.getMetadataMap().get("month"));
-                    System.out.println(entity.getMetadataMap().toString());
-                    System.out.println(mention.getText().getContent());
-                    System.out.println();
-                }
-            }
-        }
-    }
+//                    System.out.println(entity.getMetadataMap().toString());
+//                    System.out.println(mention.getText().getContent());
+//                    System.out.println();
+//                }
+//            }
+//        }
+//    }
 
 }
