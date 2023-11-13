@@ -1,5 +1,6 @@
 package Team4.CalendarNLPServer.domain.schedule;
 
+import Team4.CalendarNLPServer.domain.student.Student;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,25 +21,30 @@ public class Schedule {
     @Column
     private String location;
 
-    @Column
+    @Column(name = "when_month")
     private String month;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "when_day")
     private String day;
 
-    @Column
+    @Column(name = "when_time")
     private String time;
 
+    @ManyToOne
+    @JoinColumn(name = "Student_id")
+    private Student student;
+
     @Builder
-    public Schedule(String event, String location, String month, String day, String time) {
+    public Schedule(String event, String location, String month, String day, String time, Student student) {
         this.event = event;
         this.location = location;
         this.month = month;
         this.day = day;
         this.time = time;
+        this.student = student;
     }
 
-    public void update(String event, String location, String month, String day) {
+    public void update(String event, String location, String month, String day, String time) {
         this.event = event;
         this.location = location;
         this.month = month;
