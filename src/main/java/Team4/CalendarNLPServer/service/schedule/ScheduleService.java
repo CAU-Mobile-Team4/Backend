@@ -3,6 +3,7 @@ package Team4.CalendarNLPServer.service.schedule;
 import Team4.CalendarNLPServer.common.ScheduleAlreadyExistException;
 import Team4.CalendarNLPServer.common.ScheduleNOTExistException;
 import Team4.CalendarNLPServer.common.StudentNOTExistException;
+import Team4.CalendarNLPServer.controller.dto.ScheduleListRequestDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleSaveRequestDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
 import Team4.CalendarNLPServer.domain.schedule.Schedule;
@@ -12,12 +13,13 @@ import Team4.CalendarNLPServer.domain.student.StudentRepository;
 import Team4.CalendarNLPServer.service.NLP.DataNLP;
 import com.google.cloud.language.v1beta2.Entity;
 import com.google.cloud.language.v1beta2.EntityMention;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -105,6 +107,28 @@ public class ScheduleService {
         if (schedule.isEmpty()) {
             throw new ScheduleNOTExistException("일정이 없습니다.");
         }
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public List<ScheduleListRequestDto> findAllByStuID(Long id) {
+        return scheduleRepository.findAllByUserIdDesc(id).stream()
+                .map(ScheduleListRequestDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @org.springframework.transaction.annotation.Transactional
+    public List<Schedule> findAllByKeyword(String keyword) {
+        return scheduleRepository.findSchedulesByEventContains(keyword);
+    }
+
+    public void delete(Long stuId,Long schId) {
+        Student student = studentRepository.findById(stuId)
+                .orElseThrow(() -> new StudentNOTExistException("학생이 존재하지 않습니다."));
+        Schedule schedule = scheduleRepository.findById(schId)
+                .orElseThrow(() -> new ScheduleNOTExistException("일정이 존재하지 않습니다."));
+
+        student.deleteSchedule(schedule);
+        scheduleRepository.delete(schedule);
     }
 
 }

@@ -1,11 +1,11 @@
 package Team4.CalendarNLPServer.service.student;
 
-import Team4.CalendarNLPServer.common.StudentAlreadyExistException;
-import Team4.CalendarNLPServer.controller.dto.StudentSaveRequestDto;
+import Team4.CalendarNLPServer.controller.dto.StudentResponseDto;
 import Team4.CalendarNLPServer.domain.student.Student;
 import Team4.CalendarNLPServer.domain.student.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -15,22 +15,21 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public Long join(StudentSaveRequestDto requestDto) {
-        findDuplicateStudent(requestDto);
+    @Transactional
+    public Long join(StudentResponseDto responseDto) {
+        Optional<Student> findStu = studentRepository.findById(responseDto.getId());
+        if (findStu.isPresent()) {
+            if (responseDto.getName().equals(findStu.get().getName())) {
+                return findStu.get().getId();
+            }
+        }
         Student student = Student.builder()
-                .id(requestDto.getId())
-                .name(requestDto.getName())
+                .id(responseDto.getId())
+                .name(responseDto.getName())
                 .build();
         studentRepository.save(student);
 
         return student.getId();
-    }
-
-    public void findDuplicateStudent(StudentSaveRequestDto requestDto) {
-        Optional<Student> student = studentRepository.findById(requestDto.getId());
-        if (student.isPresent()) {
-            throw new StudentAlreadyExistException("이미 존재하는 학생입니다.");
-        }
     }
 
 }

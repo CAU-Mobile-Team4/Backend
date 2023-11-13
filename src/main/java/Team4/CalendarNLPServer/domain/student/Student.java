@@ -33,4 +33,8 @@ public class Student {
         this.schedules.add(schedule);
     }
 
+    public void deleteSchedule(Schedule schedule) {
+        this.schedules.remove(schedule);
+    }
+
 }

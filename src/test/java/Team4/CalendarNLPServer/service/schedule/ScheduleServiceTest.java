@@ -1,17 +1,13 @@
 package Team4.CalendarNLPServer.service.schedule;
 
-import Team4.CalendarNLPServer.controller.dto.StudentSaveRequestDto;
-import Team4.CalendarNLPServer.domain.student.Student;
+import Team4.CalendarNLPServer.controller.dto.StudentResponseDto;
 import Team4.CalendarNLPServer.service.student.StudentService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
@@ -27,16 +23,18 @@ class ScheduleServiceTest {
     @Test
     public void serviceTest() throws Exception {
 
-        String text = "11월 13일 오전 10시에 강남역에서 회의가 있어.";
+        String text1 = "11월 13일 오전 10시에 강남역에서 회의가 있어.";
+        String text2 = "15일에 우리 집에서 파티해";
 
-        StudentSaveRequestDto requestDto= StudentSaveRequestDto.builder()
+        StudentResponseDto responseDto= StudentResponseDto.builder()
                 .id(20194566L)
                 .name("김동현")
                 .build();
-        studentService.join(requestDto);
+        studentService.join(responseDto);
 
-        long student_id = requestDto.getId();
-        scheduleService.save(student_id, text);
+        long student_id = responseDto.getId();
+        scheduleService.save(student_id, text1);
+        scheduleService.save(student_id, text2);
     }
 
 }

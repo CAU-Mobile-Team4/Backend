@@ -24,7 +24,7 @@ public class Schedule {
     @Column(name = "when_month")
     private String month;
 
-    @Column(nullable = false, name = "when_day")
+    @Column(name = "when_day")
     private String day;
 
     @Column(name = "when_time")
