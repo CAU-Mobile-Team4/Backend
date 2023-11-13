@@ -17,7 +17,7 @@ public class StudentService {
 
     public Long join(StudentSaveRequestDto requestDto) {
         findDuplicateStudent(requestDto);
-        Student student=Student.builder()
+        Student student = Student.builder()
                 .id(requestDto.getId())
                 .name(requestDto.getName())
                 .build();

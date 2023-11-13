@@ -2,10 +2,13 @@ package Team4.CalendarNLPServer.service.schedule;
 
 import Team4.CalendarNLPServer.common.ScheduleAlreadyExistException;
 import Team4.CalendarNLPServer.common.ScheduleNOTExistException;
+import Team4.CalendarNLPServer.common.StudentNOTExistException;
 import Team4.CalendarNLPServer.controller.dto.ScheduleSaveRequestDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
 import Team4.CalendarNLPServer.domain.schedule.Schedule;
 import Team4.CalendarNLPServer.domain.schedule.ScheduleRepository;
+import Team4.CalendarNLPServer.domain.student.Student;
+import Team4.CalendarNLPServer.domain.student.StudentRepository;
 import Team4.CalendarNLPServer.service.NLP.DataNLP;
 import com.google.cloud.language.v1beta2.Entity;
 import com.google.cloud.language.v1beta2.EntityMention;
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class ScheduleService {
 
     private final DataNLP dataNLP;
+    private final StudentRepository studentRepository;
     private final ScheduleRepository scheduleRepository;
 
     public ScheduleSaveRequestDto parsing(String text) throws Exception {
@@ -65,13 +69,19 @@ public class ScheduleService {
 
     @Transactional
     public Long save(Long id, String text) throws Exception {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNOTExistException("학생이 존재하지 않습니다"));
+
         ScheduleSaveRequestDto requestDto = parsing(text);
         findDuplicateSchedule(requestDto);
+
+        requestDto.setStudent(student);
         Schedule schedule = requestDto.toEntity();
         scheduleRepository.save(schedule);
+        student.addSchedule(schedule);
+
         return schedule.getId();
     }
-    // TODO: Student - Schedule 연결테이블 만들고 저장하기
 
     public void findDuplicateSchedule(ScheduleSaveRequestDto requestDto) {
         Optional<Schedule> schedule = scheduleRepository.findByEventAndMonthAndDayAndTime(requestDto.getEvent(), requestDto.getMonth(), requestDto.getDay(), requestDto.getTime());
@@ -85,7 +95,7 @@ public class ScheduleService {
         findScheduleById(id);
         Optional<Schedule> find = scheduleRepository.findById(id);
         Schedule schedule = find.get();
-        schedule.update(requestDto.getEvent(), requestDto.getMonth(), requestDto.getDay(), requestDto.getTime());
+        schedule.update(requestDto.getEvent(), requestDto.getLocation(), requestDto.getMonth(), requestDto.getDay(), requestDto.getTime());
 
         return schedule.getId();
     }

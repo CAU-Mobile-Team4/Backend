@@ -1,6 +1,7 @@
 package Team4.CalendarNLPServer.controller.dto;
 
 import Team4.CalendarNLPServer.domain.schedule.Schedule;
+import Team4.CalendarNLPServer.domain.student.Student;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,7 @@ public class ScheduleSaveRequestDto {
     private String month;
     private String day;
     private String time;
+    private Student student;
 
     @Builder
     public ScheduleSaveRequestDto(String event, String location, String month, String day, String time) {
@@ -24,6 +26,16 @@ public class ScheduleSaveRequestDto {
         this.time = time;
     }
 
+    @Builder
+    public ScheduleSaveRequestDto(ScheduleSaveRequestDto requestDto, Student student) {
+        this.event = requestDto.getEvent();
+        this.location = requestDto.getLocation();
+        this.month = requestDto.getMonth();
+        this.day = requestDto.getDay();
+        this.time = requestDto.getTime();
+        this.student = student;
+    }
+
     public Schedule toEntity() {
         return Schedule.builder()
                 .event(event)
@@ -31,7 +43,12 @@ public class ScheduleSaveRequestDto {
                 .month(month)
                 .day(day)
                 .time(time)
+                .student(student)
                 .build();
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
 }
