@@ -23,8 +23,7 @@ public class DataNLP {
     }
 
 //    public static void main(String... args) throws Exception {
-//        // Instantiates a client
-//        String text = "12월 21일 오후 5시에 회의실에서 캡스톤디자인 회의가 있어.";
+//        String text = "11월 13일 오전 10시에 강남역에서 회의가 있어.";
 //        try (LanguageServiceClient language = LanguageServiceClient.create()) {
 //            Document doc = Document.newBuilder().setContent(text).setType(Document.Type.PLAIN_TEXT).build();
 //            List<Entity> entitiesList = language.analyzeEntities(doc).getEntitiesList();
@@ -32,9 +31,8 @@ public class DataNLP {
 //            for (Entity entity : entitiesList) {
 //                for (EntityMention mention : entity.getMentionsList()) {
 //                    System.out.println(entity.getType());
-//                    System.out.println(entity.getMetadataMap().get("day"));
-//                    System.out.println(entity.getMetadataMap().get("month"));
-//                    System.out.println(entity.getMetadataMap().toString());
+//                    System.out.println("Day: " + entity.getMetadataMap().get("day"));
+//                    System.out.println("Month: " + entity.getMetadataMap().get("month"));
 //                    System.out.println(mention.getText().getContent());
 //                    System.out.println();
 //                }

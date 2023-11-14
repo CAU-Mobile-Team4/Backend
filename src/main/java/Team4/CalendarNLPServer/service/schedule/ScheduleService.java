@@ -39,23 +39,27 @@ public class ScheduleService {
         String time = null;
         for (Entity entity : data) {
             for (EntityMention mention : entity.getMentionsList()) {
-                if (entity.getType().toString().equals("EVENT")) {
+                if (entity.getType().toString().equals("EVENT") || entity.getType().toString().equals("ORGANIZATION") || entity.getType().toString().equals("OTHER")) {
                     event = mention.getText().getContent();
                 }
                 if (entity.getType().toString().equals("LOCATION")) {
                     location = mention.getText().getContent();
                 }
                 if (entity.getType().toString().equals("DATE")) {
-                    String clock = mention.getText().getContent();
+                    time = mention.getText().getContent();
                     if (entity.getMetadataMap().containsKey("month")) {
                         month = entity.getMetadataMap().get("month");
-                        time = clock.replaceAll(month + "월", "");
+                        time = time.replaceFirst(month + "월", "");
                     }
                     if (entity.getMetadataMap().containsKey("day")) {
                         day = entity.getMetadataMap().get("day");
-                        time = clock.replaceAll(day + "일", "");
+                        time = time.replaceFirst(day + "일", "");
                     }
-                    time = clock.trim();
+                    if (time.equals(" ")) {
+                        time = null;
+                    } else {
+                        time = time.trim();
+                    }
                 }
             }
         }
