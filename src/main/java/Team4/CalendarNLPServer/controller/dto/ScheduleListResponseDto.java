@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ScheduleListRequestDto {
+public class ScheduleListResponseDto {
 
     private String event;
     private String location;
@@ -14,7 +14,7 @@ public class ScheduleListRequestDto {
     private String day;
     private String time;
 
-    public ScheduleListRequestDto(Schedule entity) {
+    public ScheduleListResponseDto(Schedule entity) {
         this.event = entity.getEvent();
         this.location = entity.getLocation();
         this.month = entity.getMonth();

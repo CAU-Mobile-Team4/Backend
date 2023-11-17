@@ -3,7 +3,7 @@ package Team4.CalendarNLPServer.service.schedule;
 import Team4.CalendarNLPServer.common.ScheduleAlreadyExistException;
 import Team4.CalendarNLPServer.common.ScheduleNOTExistException;
 import Team4.CalendarNLPServer.common.StudentNOTExistException;
-import Team4.CalendarNLPServer.controller.dto.ScheduleListRequestDto;
+import Team4.CalendarNLPServer.controller.dto.ScheduleListResponseDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleSaveRequestDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
 import Team4.CalendarNLPServer.domain.schedule.Schedule;
@@ -17,7 +17,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -114,15 +116,18 @@ public class ScheduleService {
     }
 
     @org.springframework.transaction.annotation.Transactional
-    public List<ScheduleListRequestDto> findAllByStuID(Long id) {
+    public List<ScheduleListResponseDto> findAllByStuID(Long id) {
         return scheduleRepository.findAllByUserIdDesc(id).stream()
-                .map(ScheduleListRequestDto::new)
+                .map(ScheduleListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @org.springframework.transaction.annotation.Transactional
-    public List<Schedule> findAllByKeyword(String keyword) {
-        return scheduleRepository.findSchedulesByEventContains(keyword);
+    public List<ScheduleListResponseDto> findAllByKeyword(Long id, String keyword) {
+        return scheduleRepository.findSchedulesByEventContains(keyword).stream()
+                .filter(schedule -> schedule.getId().equals(id))
+                .map(ScheduleListResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     public void delete(Long stuId,Long schId) {
