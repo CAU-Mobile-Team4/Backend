@@ -1,8 +1,8 @@
 package Team4.CalendarNLPServer.service.schedule;
 
-import Team4.CalendarNLPServer.common.ScheduleAlreadyExistException;
-import Team4.CalendarNLPServer.common.ScheduleNOTExistException;
-import Team4.CalendarNLPServer.common.StudentNOTExistException;
+import Team4.CalendarNLPServer.exceptions.ScheduleAlreadyExistException;
+import Team4.CalendarNLPServer.exceptions.ScheduleNOTExistException;
+import Team4.CalendarNLPServer.exceptions.StudentNOTExistException;
 import Team4.CalendarNLPServer.controller.dto.ScheduleListResponseDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleSaveRequestDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
@@ -17,9 +17,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -130,6 +128,7 @@ public class ScheduleService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void delete(Long stuId,Long schId) {
         Student student = studentRepository.findById(stuId)
                 .orElseThrow(() -> new StudentNOTExistException("학생이 존재하지 않습니다."));
@@ -138,6 +137,10 @@ public class ScheduleService {
 
         student.deleteSchedule(schedule);
         scheduleRepository.delete(schedule);
+    }
+
+    public void deleteAll() {
+        scheduleRepository.deleteAll();
     }
 
 }
