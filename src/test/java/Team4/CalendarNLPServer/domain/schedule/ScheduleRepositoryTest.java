@@ -33,7 +33,7 @@ class ScheduleRepositoryTest {
     }
 
     @Test
-    public void testSave() {
+    public void 일정_저장() {
         Student student = Student.builder()
                 .id(20194566L)
                 .name("김동현")
