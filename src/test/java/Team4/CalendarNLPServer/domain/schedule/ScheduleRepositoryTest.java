@@ -2,6 +2,9 @@ package Team4.CalendarNLPServer.domain.schedule;
 
 import Team4.CalendarNLPServer.domain.student.Student;
 import Team4.CalendarNLPServer.domain.student.StudentRepository;
+import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class ScheduleRepositoryTest {
 
     @Autowired
@@ -22,6 +25,12 @@ class ScheduleRepositoryTest {
 
     @Autowired
     private ScheduleRepository scheduleRepository;
+
+    @BeforeEach
+    public void deleteAll() {
+        scheduleRepository.deleteAll();
+        studentRepository.deleteAll();
+    }
 
     @Test
     public void testSave() {

@@ -2,7 +2,7 @@ package Team4.CalendarNLPServer.service.schedule;
 
 import Team4.CalendarNLPServer.controller.dto.StudentResponseDto;
 import Team4.CalendarNLPServer.service.student.StudentService;
-import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ScheduleServiceTest {
@@ -20,6 +20,12 @@ class ScheduleServiceTest {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    @BeforeEach
+    public void deleteAll() {
+        scheduleService.deleteAll();
+        studentService.deleteAll();
+    }
 
     @Test
     public void serviceTest() throws Exception {
