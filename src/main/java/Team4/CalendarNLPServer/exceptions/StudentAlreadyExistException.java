@@ -1,4 +1,4 @@
-package Team4.CalendarNLPServer.common;
+package Team4.CalendarNLPServer.exceptions;
 
 public class StudentAlreadyExistException extends RuntimeException {
 
