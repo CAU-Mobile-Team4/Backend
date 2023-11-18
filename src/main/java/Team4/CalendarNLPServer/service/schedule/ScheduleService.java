@@ -13,9 +13,9 @@ import Team4.CalendarNLPServer.domain.student.StudentRepository;
 import Team4.CalendarNLPServer.service.NLP.DataNLP;
 import com.google.cloud.language.v1beta2.Entity;
 import com.google.cloud.language.v1beta2.EntityMention;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -113,14 +113,14 @@ public class ScheduleService {
         }
     }
 
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public List<ScheduleListResponseDto> findAllByStuID(Long id) {
         return scheduleRepository.findAllByUserIdDesc(id).stream()
                 .map(ScheduleListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public List<ScheduleListResponseDto> findAllByKeyword(Long id, String keyword) {
         return scheduleRepository.findSchedulesByEventContains(keyword).stream()
                 .filter(schedule -> schedule.getId().equals(id))
