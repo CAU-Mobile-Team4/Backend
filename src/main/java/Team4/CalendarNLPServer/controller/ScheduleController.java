@@ -1,6 +1,7 @@
 package Team4.CalendarNLPServer.controller;
 
 import Team4.CalendarNLPServer.controller.dto.ScheduleListResponseDto;
+import Team4.CalendarNLPServer.controller.dto.ScheduleSaveRequestDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
 import Team4.CalendarNLPServer.service.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class ScheduleController {
     @PostMapping("/schedule/{stuId}")
     public Long save(@PathVariable Long stuId,
                      @RequestBody String text) throws Exception {
-        return scheduleService.save(stuId, text);
+        ScheduleSaveRequestDto requestDto = scheduleService.parsing(text);
+        return scheduleService.save(stuId, requestDto);
     }
 
     // schId 일정의 수정
