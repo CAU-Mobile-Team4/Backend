@@ -47,5 +47,5 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: zestbear/calendar-nlp-server:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
 
