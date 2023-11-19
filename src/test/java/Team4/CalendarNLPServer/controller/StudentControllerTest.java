@@ -26,7 +26,7 @@ class StudentControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    public void joinControllerTest() throws Exception {
+    public void 로그인_회원가입_controllerTest() throws Exception {
 
         // {"id":20190000, "name":"studentName"} 으로 JSON 요청
         Map<String, Object> requestMap = new HashMap<>();
