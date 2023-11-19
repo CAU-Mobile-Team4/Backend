@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -124,6 +125,20 @@ class ScheduleControllerTest {
         assertEquals("monthM", schedule.getMonth());
         assertEquals("dayM", schedule.getDay());
         assertEquals("timeM", schedule.getTime());
+
+    }
+
+    // TODO: 모든 일정 반환 controller 테스트 코드 작성
+    // TODO: 일정 겁색 controller 테스트 코드 작성
+
+    @Test
+    public void 일정_삭제_controllerTest() throws Exception {
+
+        mockMvc.perform(
+                        delete("/schedule/" + studentId + "/" + scheduleId)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
 
     }
 
