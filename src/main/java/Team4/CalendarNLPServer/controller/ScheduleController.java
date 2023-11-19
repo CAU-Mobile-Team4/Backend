@@ -2,7 +2,6 @@ package Team4.CalendarNLPServer.controller;
 
 import Team4.CalendarNLPServer.controller.dto.ScheduleListResponseDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
-import Team4.CalendarNLPServer.domain.schedule.Schedule;
 import Team4.CalendarNLPServer.service.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
