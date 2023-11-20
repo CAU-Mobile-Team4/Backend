@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ScheduleListResponseDto {
 
+    private Long id;
     private String event;
     private String location;
     private String month;
@@ -15,6 +16,7 @@ public class ScheduleListResponseDto {
     private String time;
 
     public ScheduleListResponseDto(Schedule entity) {
+        this.id = entity.getId();
         this.event = entity.getEvent();
         this.location = entity.getLocation();
         this.month = entity.getMonth();

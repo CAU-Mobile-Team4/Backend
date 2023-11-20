@@ -95,9 +95,9 @@ public class ScheduleService {
     }
 
     @Transactional
-    public Long update(Long id, ScheduleUpdateRequestDto requestDto) {
-        findScheduleById(id);
-        Optional<Schedule> find = scheduleRepository.findById(id);
+    public Long update(Long schId, ScheduleUpdateRequestDto requestDto) {
+        findScheduleById(schId);
+        Optional<Schedule> find = scheduleRepository.findById(schId);
         Schedule schedule = find.get();
         schedule.update(requestDto.getEvent(), requestDto.getLocation(), requestDto.getMonth(), requestDto.getDay(), requestDto.getTime());
 
@@ -112,23 +112,22 @@ public class ScheduleService {
     }
 
     @Transactional
-    public List<ScheduleListResponseDto> findAllByStuID(Long id) {
-        return scheduleRepository.findAllByUserIdDesc(id).stream()
+    public List<ScheduleListResponseDto> findAllByStuID(Long stuId) {
+        return scheduleRepository.findAllByUserIdDesc(stuId).stream()
                 .map(ScheduleListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public List<ScheduleListResponseDto> findAllByKeyword(Long id, String keyword) {
+    public List<ScheduleListResponseDto> findAllByKeyword(Long stuId, String keyword) {
         return scheduleRepository.findSchedulesByEventContains(keyword).stream()
-                .filter(schedule -> schedule.getStudent().getId().equals(id))
+                .filter(schedule -> schedule.getStudent().getId().equals(stuId))
                 .map(ScheduleListResponseDto::new)
                 .collect(Collectors.toList());
     }
 
-
     @Transactional
-    public void delete(Long stuId,Long schId) {
+    public void delete(Long stuId, Long schId) {
         Student student = studentRepository.findById(stuId)
                 .orElseThrow(() -> new StudentNOTExistException("학생이 존재하지 않습니다."));
         Schedule schedule = scheduleRepository.findById(schId)
