@@ -78,9 +78,11 @@ jobs:
           port: 22
           timeout: 60s
           script: |
-            sudo docker stop server
-            sudo docker rm server
-            sudo docker run -it -d -p 8080:8080 --name server ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
+            sudo docker stop $(docker ps -a -q)
+            sudo docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
+            sudo docker rm $(docker ps --filter 'status=exited' -a -q)
+            sudo docker image prune -a -f
 
       # REMOVE Github IP FROM security group
       - name: Remove IP FROM security group
