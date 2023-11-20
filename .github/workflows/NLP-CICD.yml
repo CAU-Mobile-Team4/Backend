@@ -54,17 +54,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
 
-      - name: Deploy
-        uses: appleboy/ssh-action@master
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          host: ${{ secrets.HOST }} # EC2 인스턴스 퍼블릭 DNS
-          username: ec2-user
-          key: ${{ secrets.PRIVATE_KEY }}
-          port: 22
-          # 도커 작업
-          script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/calendar-nlp-server:latest
-            docker stop $(docker ps -a -q)
-            docker run -d --log-driver=syslog -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/calendar-nlp-server:latest
-            docker rm $(docker ps --filter 'status=exited' -a -q)
-            docker image prune -a -f
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Deploy to AWS EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} <<EOF
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
+            docker stop my-app || true
+            docker rm my-app || true
+            docker run -d --name my-app -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/my-app:latest
+          EOF
