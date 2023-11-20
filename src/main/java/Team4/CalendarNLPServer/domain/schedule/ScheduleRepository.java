@@ -13,11 +13,10 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
 
     Optional<Schedule> findByEventAndMonthAndDayAndTime(String event, String month, String day, String time);
 
-    @Query("SELECT s FROM Schedule s WHERE s.student.id = :id ORDER BY s.id DESC")
+    @Query("SELECT s FROM Schedule s WHERE (s.student.id = :id OR s.student.id = 1) ORDER BY s.id DESC")
     List<Schedule> findAllByUserIdDesc(@Param("id") Long id);
 
-    @Query("SELECT s FROM Schedule s WHERE s.event LIKE %:keyword% ORDER BY s.id DESC")
-    List<Schedule> findSchedulesByEventContains(@Param("keyword") String keyword);
-
+    @Query("SELECT s FROM Schedule s WHERE (s.event LIKE %:keyword%) AND (s.student.id = :stuId OR s.student.id = 1) ORDER BY s.id DESC")
+    List<Schedule> findSchedulesByEventContains(@Param("stuId") Long stuId, @Param("keyword") String keyword);
 
 }

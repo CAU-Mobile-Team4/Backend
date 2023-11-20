@@ -120,8 +120,7 @@ public class ScheduleService {
 
     @Transactional
     public List<ScheduleListResponseDto> findAllByKeyword(Long stuId, String keyword) {
-        return scheduleRepository.findSchedulesByEventContains(keyword).stream()
-                .filter(schedule -> schedule.getStudent().getId().equals(stuId))
+        return scheduleRepository.findSchedulesByEventContains(stuId, keyword).stream()
                 .map(ScheduleListResponseDto::new)
                 .collect(Collectors.toList());
     }
