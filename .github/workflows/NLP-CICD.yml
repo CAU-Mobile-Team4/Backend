@@ -63,4 +63,4 @@ jobs:
           script: |
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
             docker stop server
-            docker run -d --rm --name server -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
+            docker run -d --name server -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
