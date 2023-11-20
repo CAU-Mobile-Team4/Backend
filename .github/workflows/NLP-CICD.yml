@@ -55,7 +55,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
 
       - name: Deploy to Server
-        uses: appleboy/ssh-action@master
+        uses: actions/checkout@v2
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
