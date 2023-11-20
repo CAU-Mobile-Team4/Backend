@@ -155,7 +155,29 @@ class ScheduleControllerTest {
 
     }
 
+    @Test
+    public void 일정_검색_controllerTest() throws Exception {
 
+        MvcResult mvcResult = mockMvc.perform(
+                        post("/schedule/search/" + studentId)
+                                .contentType(MediaType.TEXT_PLAIN)
+                                .content("eve")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String jsonResponse = mvcResult.getResponse().getContentAsString();
+        List<ScheduleListResponseDto> schedules = new ObjectMapper().readValue(jsonResponse, new TypeReference<List<ScheduleListResponseDto>>(){});
+
+        assertEquals(1, schedules.size());
+        assertEquals("event", schedules.get(0).getEvent());
+        assertEquals("location", schedules.get(0).getLocation());
+        assertEquals("month", schedules.get(0).getMonth());
+        assertEquals("day", schedules.get(0).getDay());
+        assertEquals("time", schedules.get(0).getTime());
+
+    }
 
     @Test
     public void 일정_삭제_controllerTest() throws Exception {
