@@ -121,10 +121,11 @@ public class ScheduleService {
     @Transactional
     public List<ScheduleListResponseDto> findAllByKeyword(Long id, String keyword) {
         return scheduleRepository.findSchedulesByEventContains(keyword).stream()
-                .filter(schedule -> schedule.getId().equals(id))
+                .filter(schedule -> schedule.getStudent().getId().equals(id))
                 .map(ScheduleListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
 
     @Transactional
     public void delete(Long stuId,Long schId) {
