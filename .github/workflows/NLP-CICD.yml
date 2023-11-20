@@ -28,8 +28,6 @@ jobs:
           DB_ENDPOINT: ${{ secrets.DB_ENDPOINT }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          with:
-            arguments: build
         with:
           arguments: build
 
