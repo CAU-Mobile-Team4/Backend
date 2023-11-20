@@ -147,6 +147,7 @@ class ScheduleControllerTest {
         List<ScheduleListResponseDto> schedules = new ObjectMapper().readValue(jsonResponse, new TypeReference<List<ScheduleListResponseDto>>(){});
 
         assertEquals(1, schedules.size());
+        assertEquals(scheduleId, schedules.get(0).getId());
         assertEquals("event", schedules.get(0).getEvent());
         assertEquals("location", schedules.get(0).getLocation());
         assertEquals("month", schedules.get(0).getMonth());
@@ -171,6 +172,7 @@ class ScheduleControllerTest {
         List<ScheduleListResponseDto> schedules = new ObjectMapper().readValue(jsonResponse, new TypeReference<List<ScheduleListResponseDto>>(){});
 
         assertEquals(1, schedules.size());
+        assertEquals(scheduleId, schedules.get(0).getId());
         assertEquals("event", schedules.get(0).getEvent());
         assertEquals("location", schedules.get(0).getLocation());
         assertEquals("month", schedules.get(0).getMonth());
