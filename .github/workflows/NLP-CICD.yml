@@ -72,7 +72,7 @@ jobs:
       - name: AWS EC2 Connection
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ steps.ip.outputs.ipv4 }}/32
+          host: ${{ secrets.HOST }}
           username: ec2-user
           password: ${{ secrets.PRIVATE_KEY }}
           port: 22
