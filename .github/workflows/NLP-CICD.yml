@@ -3,6 +3,11 @@ name: NLP-CI/CD
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -49,3 +54,13 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
 
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
+            docker stop server
+            docker run -d --rm --name server -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/calendar-nlp-server:latest
