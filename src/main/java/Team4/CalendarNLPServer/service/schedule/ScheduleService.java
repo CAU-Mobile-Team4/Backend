@@ -74,8 +74,8 @@ public class ScheduleService {
     }
 
     @Transactional
-    public Long save(Long id, ScheduleSaveRequestDto requestDto) {
-        Student student = studentRepository.findById(id)
+    public Long save(Long stuId, ScheduleSaveRequestDto requestDto) {
+        Student student = studentRepository.findById(stuId)
                 .orElseThrow(() -> new StudentNOTExistException("학생이 존재하지 않습니다"));
 
         findDuplicateSchedule(requestDto);
