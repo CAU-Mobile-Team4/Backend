@@ -15,9 +15,16 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    // stuId 학생의 일정 목록에 저장
+    // 사용자 입력으로 stuId 학생의 일정 목록에 저장
     @PostMapping("/schedule/{stuId}")
     public Long save(@PathVariable Long stuId,
+                     @RequestBody ScheduleSaveRequestDto requestDto) {
+        return scheduleService.save(stuId, requestDto);
+    }
+
+    // NLP 기능으로 stuId 학생의 일정 목록에 저장
+    @PostMapping("/schedule/nlp/{stuId}")
+    public Long saveText(@PathVariable Long stuId,
                      @RequestBody String text) throws Exception {
         ScheduleSaveRequestDto requestDto = scheduleService.parsing(text);
         return scheduleService.save(stuId, requestDto);
