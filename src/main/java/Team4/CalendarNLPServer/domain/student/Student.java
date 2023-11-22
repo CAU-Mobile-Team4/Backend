@@ -2,6 +2,7 @@ package Team4.CalendarNLPServer.domain.student;
 
 import Team4.CalendarNLPServer.domain.schedule.Schedule;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,8 @@ public class Student {
     @Id
     private Long id;        // 학번
 
-    @Column(nullable = false)
+    @NotNull
+    @Column
     private String name;    // 이름
 
     @OneToMany(mappedBy = "student")
