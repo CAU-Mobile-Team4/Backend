@@ -162,7 +162,7 @@ class ScheduleControllerTest {
         MvcResult mvcResult = mockMvc.perform(
                         post("/schedule/search/" + studentId)
                                 .contentType(MediaType.TEXT_PLAIN)
-                                .content("eve")
+                                .param("keyword", "eve")
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
