@@ -85,20 +85,18 @@ class ScheduleControllerTest {
     }
 
     @Test
-    public void 일정_저장_controllerTest() {
-//        Map<String, Object> requestMap = new HashMap<>();
-//        requestMap.put("text", "11월 13일 오전 10시에 강남역에서 회의가 있어.");
-//
-//        String content = new ObjectMapper().writeValueAsString(requestMap);
-//
-//        mockMvc.perform(
-//                        post("/schedule/20190000")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                                .content(content)
-//                )
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(content().string("1"));
+    public void 일정_저장_controllerTest() throws Exception {
+        Map<String, String> requestMap = new HashMap<>();
+        requestMap.put("text", "11월 13일 오전 10시에 강남역에서 회의가 있어.");
+        String content = new ObjectMapper().writeValueAsString(requestMap);
+
+        mockMvc.perform(
+                        post("/schedule/20190000")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(content)
+                )
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test

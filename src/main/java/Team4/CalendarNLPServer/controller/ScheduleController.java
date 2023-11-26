@@ -3,6 +3,7 @@ package Team4.CalendarNLPServer.controller;
 
 import Team4.CalendarNLPServer.controller.dto.ScheduleListResponseDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleSaveRequestDto;
+import Team4.CalendarNLPServer.controller.dto.ScheduleTextResponseDto;
 import Team4.CalendarNLPServer.controller.dto.ScheduleUpdateRequestDto;
 import Team4.CalendarNLPServer.service.schedule.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +27,8 @@ public class ScheduleController {
     // NLP 기능으로 stuId 학생의 일정 목록에 저장
     @PostMapping("/schedule/nlp/{stuId}")
     public Long saveText(@PathVariable Long stuId,
-                         @RequestParam("text") String text) throws Exception {
-        ScheduleSaveRequestDto requestDto = scheduleService.parsing(text);
+                         @RequestBody ScheduleTextResponseDto responseDto) throws Exception {
+        ScheduleSaveRequestDto requestDto = scheduleService.parsing(responseDto.getText());
         return scheduleService.save(stuId, requestDto);
     }
 
