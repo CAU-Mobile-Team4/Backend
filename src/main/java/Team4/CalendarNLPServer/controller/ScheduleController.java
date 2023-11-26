@@ -25,7 +25,7 @@ public class ScheduleController {
     // NLP 기능으로 stuId 학생의 일정 목록에 저장
     @PostMapping("/schedule/nlp/{stuId}")
     public Long saveText(@PathVariable Long stuId,
-                     @RequestBody String text) throws Exception {
+                         @RequestParam("text") String text) throws Exception {
         ScheduleSaveRequestDto requestDto = scheduleService.parsing(text);
         return scheduleService.save(stuId, requestDto);
     }
@@ -46,7 +46,7 @@ public class ScheduleController {
     // stuId 학생의 일정 중에 keyword가 포함되어 있는 일정 List 반환
     @PostMapping("/schedule/search/{stuId}")
     public List<ScheduleListResponseDto> search(@PathVariable Long stuId,
-                                                @RequestBody String keyword) {
+                                                @RequestParam("keyword") String keyword) {
         return scheduleService.findAllByKeyword(stuId, keyword);
     }
 
