@@ -16,7 +16,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     @Query("SELECT s FROM Schedule s WHERE  s.student.id = 1 ORDER BY s.id DESC")
     List<Schedule> findAllScheduleBeforeLogin();
 
-    @Query("SELECT s FROM Schedule s WHERE (s.student.id = :id OR s.student.id = 1) ORDER BY CAST(s.year AS integer), CAST(s.month AS integer), CAST(s.day AS integer) ASC")
+    @Query("SELECT s FROM Schedule s WHERE (s.student.id = :id OR s.student.id = 1) ORDER BY s.year, s.month, s.day ASC")
     List<Schedule> findAllByUserIdDesc(@Param("id") Long id);
 
     @Query("SELECT s FROM Schedule s WHERE (s.event LIKE %:keyword%) AND (s.student.id = :stuId OR s.student.id = 1) ORDER BY s.id DESC")
