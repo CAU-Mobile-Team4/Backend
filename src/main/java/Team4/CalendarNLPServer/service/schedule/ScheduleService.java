@@ -99,7 +99,7 @@ public class ScheduleService {
         findScheduleById(schId);
         Optional<Schedule> find = scheduleRepository.findById(schId);
         Schedule schedule = find.get();
-        schedule.update(requestDto.getEvent(), requestDto.getLocation(), requestDto.getMonth(), requestDto.getDay(), requestDto.getTime());
+        schedule.update(requestDto.getEvent(), requestDto.getLocation(), requestDto.getYear(), requestDto.getMonth(), requestDto.getDay(), requestDto.getTime());
 
         return schedule.getId();
     }
@@ -109,6 +109,13 @@ public class ScheduleService {
         if (schedule.isEmpty()) {
             throw new ScheduleNOTExistException("일정이 없습니다.");
         }
+    }
+
+    @Transactional
+    public List<ScheduleListResponseDto> findAllScheduleBeforeLogin() {
+        return scheduleRepository.findAllScheduleBeforeLogin().stream()
+                .map(ScheduleListResponseDto::new)
+                .collect(Collectors.toList());
     }
 
     @Transactional

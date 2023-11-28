@@ -39,6 +39,12 @@ public class ScheduleController {
         return scheduleService.update(schId, requestDto);
     }
 
+    // 비로그인 사용자 위한 모든 학교 일정 반환
+    @GetMapping("/schedule")
+    public List<ScheduleListResponseDto> findALlBeforeLogin() {
+        return scheduleService.findAllScheduleBeforeLogin();
+    }
+
     // stuId 학생의 모든 일정 List 반환
     @GetMapping("/schedule/{stuId}")
     public List<ScheduleListResponseDto> finaAll(@PathVariable Long stuId) {
