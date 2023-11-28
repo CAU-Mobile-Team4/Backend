@@ -12,15 +12,17 @@ public class ScheduleSaveRequestDto {
 
     private String event;
     private String location;
+    private String year;
     private String month;
     private String day;
     private String time;
     private Student student;
 
     @Builder
-    public ScheduleSaveRequestDto(String event, String location, String month, String day, String time) {
+    public ScheduleSaveRequestDto(String event, String location, String year, String month, String day, String time) {
         this.event = event;
         this.location = location;
+        this.year = year;
         this.month = month;
         this.day = day;
         this.time = time;
@@ -30,6 +32,7 @@ public class ScheduleSaveRequestDto {
     public ScheduleSaveRequestDto(ScheduleSaveRequestDto requestDto, Student student) {
         this.event = requestDto.getEvent();
         this.location = requestDto.getLocation();
+        this.year = requestDto.getYear();
         this.month = requestDto.getMonth();
         this.day = requestDto.getDay();
         this.time = requestDto.getTime();
@@ -40,6 +43,7 @@ public class ScheduleSaveRequestDto {
         return Schedule.builder()
                 .event(event)
                 .location(location)
+                .year(year)
                 .month(month)
                 .day(day)
                 .time(time)

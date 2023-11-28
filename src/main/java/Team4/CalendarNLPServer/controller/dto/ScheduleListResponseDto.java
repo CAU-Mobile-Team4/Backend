@@ -11,6 +11,7 @@ public class ScheduleListResponseDto {
     private Long id;
     private String event;
     private String location;
+    private String year;
     private String month;
     private String day;
     private String time;
@@ -19,6 +20,7 @@ public class ScheduleListResponseDto {
         this.id = entity.getId();
         this.event = entity.getEvent();
         this.location = entity.getLocation();
+        this.year = entity.getYear();
         this.month = entity.getMonth();
         this.day = entity.getDay();
         this.time = entity.getTime();

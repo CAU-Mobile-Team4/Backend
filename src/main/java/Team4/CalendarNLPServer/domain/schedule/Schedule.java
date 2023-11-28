@@ -21,6 +21,9 @@ public class Schedule {
     @Column
     private String location;
 
+    @Column(name = "when_year")
+    private String year;
+
     @Column(name = "when_month")
     private String month;
 
@@ -35,21 +38,35 @@ public class Schedule {
     private Student student;
 
     @Builder
-    public Schedule(String event, String location, String month, String day, String time, Student student) {
+    public Schedule(String event, String location, String year, String month, String day, String time, Student student) {
         this.event = event;
         this.location = location;
+        this.year = year;
         this.month = month;
         this.day = day;
         this.time = time;
         this.student = student;
     }
 
-    public void update(String event, String location, String month, String day, String time) {
+    public void update(String event, String location, String year, String month, String day, String time) {
         this.event = event;
         this.location = location;
+        this.year = year;
         this.month = month;
         this.day = day;
         this.time = time;
+    }
+
+    public int getIntYear() {
+        return Integer.parseInt(this.year);
+    }
+
+    public int getIntMonth() {
+        return Integer.parseInt(this.month);
+    }
+
+    public int getIntDay() {
+        return Integer.parseInt(this.day);
     }
 
 }
