@@ -34,6 +34,7 @@ public class ScheduleService {
 
         String event = null;
         String location = null;
+        String year = "2023";
         String month = null;
         String day = null;
         String time = null;
@@ -47,6 +48,10 @@ public class ScheduleService {
                 }
                 if (entity.getType().toString().equals("DATE")) {
                     time = mention.getText().getContent();
+                    if (entity.getMetadataMap().containsKey("year")) {
+                        month = entity.getMetadataMap().get("year");
+                        time = time.replaceFirst(year + "년", "");
+                    }
                     if (entity.getMetadataMap().containsKey("month")) {
                         month = entity.getMetadataMap().get("month");
                         time = time.replaceFirst(month + "월", "");
