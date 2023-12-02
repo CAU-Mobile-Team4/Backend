@@ -5,8 +5,10 @@ import Team4.CalendarNLPServer.domain.student.Student;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
+@Setter
 @Getter
 public class ScheduleSaveRequestDto {
 

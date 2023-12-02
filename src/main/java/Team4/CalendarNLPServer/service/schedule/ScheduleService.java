@@ -83,6 +83,22 @@ public class ScheduleService {
         Student student = studentRepository.findById(stuId)
                 .orElseThrow(() -> new StudentNOTExistException("학생이 존재하지 않습니다"));
 
+        if (requestDto.getEvent() == null) {
+            requestDto.setEvent("");
+        }
+        if (requestDto.getLocation() == null) {
+            requestDto.setLocation("");
+        }
+        if (requestDto.getMonth() == null) {
+            requestDto.setMonth("");
+        }
+        if (requestDto.getDay() == null) {
+            requestDto.setDay("");
+        }
+        if (requestDto.getTime() == null) {
+            requestDto.setTime("");
+        }
+
         findDuplicateSchedule(requestDto);
         requestDto.setStudent(student);
         Schedule schedule = requestDto.toEntity();
