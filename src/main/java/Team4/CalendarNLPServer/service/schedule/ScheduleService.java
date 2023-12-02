@@ -95,9 +95,6 @@ public class ScheduleService {
         if (requestDto.getDay() == null) {
             requestDto.setDay("");
         }
-        if (requestDto.getTime() == null) {
-            requestDto.setTime("");
-        }
 
         findDuplicateSchedule(requestDto);
         requestDto.setStudent(student);
