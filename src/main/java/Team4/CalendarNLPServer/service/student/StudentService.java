@@ -22,10 +22,7 @@ public class StudentService {
     public Long join(StudentResponseDto responseDto) {
         findDuplicatedStudent(responseDto.getId());
 
-        Student student = Student.builder()
-                .id(responseDto.getId())
-                .name(responseDto.getName())
-                .build();
+        Student student = responseDto.toEntity();
         studentRepository.save(student);
 
         return student.getId();

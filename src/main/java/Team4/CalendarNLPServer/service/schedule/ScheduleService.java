@@ -55,11 +55,39 @@ public class ScheduleService {
                     if (entity.getMetadataMap().containsKey("month")) {
                         month = entity.getMetadataMap().get("month");
                         time = time.replaceFirst(month + "월", "");
+                        time = time.replaceFirst("January", "");
+                        time = time.replaceFirst("Jan.", "");
+                        time = time.replaceFirst("February", "");
+                        time = time.replaceFirst("Feb.", "");
+                        time = time.replaceFirst("March", "");
+                        time = time.replaceFirst("Mar.", "");
+                        time = time.replaceFirst("April", "");
+                        time = time.replaceFirst("Apr.", "");
+                        time = time.replaceFirst("May", "");
+                        time = time.replaceFirst("May.", "");
+                        time = time.replaceFirst("June", "");
+                        time = time.replaceFirst("Jun.", "");
+                        time = time.replaceFirst("July", "");
+                        time = time.replaceFirst("Jul.", "");
+                        time = time.replaceFirst("August", "");
+                        time = time.replaceFirst("Aug.", "");
+                        time = time.replaceFirst("September", "");
+                        time = time.replaceFirst("Sep.", "");
+                        time = time.replaceFirst("October", "");
+                        time = time.replaceFirst("Oct.", "");
+                        time = time.replaceFirst("November", "");
+                        time = time.replaceFirst("Nov.", "");
+                        time = time.replaceFirst("December", "");
+                        time = time.replaceFirst("Dec.", "");
                     }
                     if (entity.getMetadataMap().containsKey("day")) {
                         day = entity.getMetadataMap().get("day");
                         time = time.replaceFirst(day + "일", "");
                     }
+                    time = time.replaceFirst("at", "");
+                    time = time.replaceFirst("am.", "");
+                    time = time.replaceFirst("pm.", "");
+                    time = time.replaceFirst("'o Clock", "");
                     if (time.equals(" ")) {
                         time = null;
                     } else {
