@@ -50,11 +50,13 @@ public class ScheduleService {
                     time = mention.getText().getContent();
                     if (entity.getMetadataMap().containsKey("year")) {
                         month = entity.getMetadataMap().get("year");
-                        time = time.replaceFirst(year + "년", "");
+                        time = time.replaceFirst(year, "");
+                        time = time.replaceFirst("년", "");
                     }
                     if (entity.getMetadataMap().containsKey("month")) {
                         month = entity.getMetadataMap().get("month");
-                        time = time.replaceFirst(month + "월", "");
+                        time = time.replaceFirst(month, "");
+                        time = time.replaceFirst("월", "");
                         time = time.replaceFirst("January", "");
                         time = time.replaceFirst("Jan.", "");
                         time = time.replaceFirst("February", "");
@@ -82,12 +84,14 @@ public class ScheduleService {
                     }
                     if (entity.getMetadataMap().containsKey("day")) {
                         day = entity.getMetadataMap().get("day");
-                        time = time.replaceFirst(day + "일", "");
+                        time = time.replaceFirst(day, "");
+                        time = time.replaceFirst("일", "");
                     }
                     time = time.replaceFirst("at", "");
-                    time = time.replaceFirst("am.", "");
-                    time = time.replaceFirst("pm.", "");
+                    time = time.replaceFirst("am", "");
+                    time = time.replaceFirst("pm", "");
                     time = time.replaceFirst("'o Clock", "");
+                    time = time.replaceFirst(".", "");
                     if (time.equals(" ")) {
                         time = null;
                     } else {
