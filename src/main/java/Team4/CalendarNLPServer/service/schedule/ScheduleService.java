@@ -91,7 +91,7 @@ public class ScheduleService {
                     time = time.replaceFirst("am", "");
                     time = time.replaceFirst("pm", "");
                     time = time.replaceFirst("'o Clock", "");
-                    time = time.replaceFirst(".", "");
+                    time = time.replaceAll("\\.", "");
                     if (time.equals(" ")) {
                         time = null;
                     } else {
