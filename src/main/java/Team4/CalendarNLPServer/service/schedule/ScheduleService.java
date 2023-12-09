@@ -49,7 +49,7 @@ public class ScheduleService {
                 if (entity.getType().toString().equals("DATE")) {
                     time = mention.getText().getContent();
                     if (entity.getMetadataMap().containsKey("year")) {
-                        month = entity.getMetadataMap().get("year");
+                        year = entity.getMetadataMap().get("year");
                         time = time.replaceFirst(year, "");
                         time = time.replaceFirst("년", "");
                     }
@@ -58,44 +58,45 @@ public class ScheduleService {
                         time = time.replaceFirst(month, "");
                         time = time.replaceFirst("월", "");
                         time = time.replaceFirst("January", "");
-                        time = time.replaceFirst("Jan.", "");
+                        time = time.replaceFirst("Jan", "");
                         time = time.replaceFirst("February", "");
-                        time = time.replaceFirst("Feb.", "");
+                        time = time.replaceFirst("Feb", "");
                         time = time.replaceFirst("March", "");
-                        time = time.replaceFirst("Mar.", "");
+                        time = time.replaceFirst("Mar", "");
                         time = time.replaceFirst("April", "");
-                        time = time.replaceFirst("Apr.", "");
+                        time = time.replaceFirst("Apr", "");
                         time = time.replaceFirst("May", "");
-                        time = time.replaceFirst("May.", "");
+                        time = time.replaceFirst("May", "");
                         time = time.replaceFirst("June", "");
-                        time = time.replaceFirst("Jun.", "");
+                        time = time.replaceFirst("Jun", "");
                         time = time.replaceFirst("July", "");
-                        time = time.replaceFirst("Jul.", "");
+                        time = time.replaceFirst("Jul", "");
                         time = time.replaceFirst("August", "");
-                        time = time.replaceFirst("Aug.", "");
+                        time = time.replaceFirst("Aug", "");
                         time = time.replaceFirst("September", "");
-                        time = time.replaceFirst("Sep.", "");
+                        time = time.replaceFirst("Sep", "");
                         time = time.replaceFirst("October", "");
-                        time = time.replaceFirst("Oct.", "");
+                        time = time.replaceFirst("Oct", "");
                         time = time.replaceFirst("November", "");
-                        time = time.replaceFirst("Nov.", "");
+                        time = time.replaceFirst("Nov", "");
                         time = time.replaceFirst("December", "");
-                        time = time.replaceFirst("Dec.", "");
+                        time = time.replaceFirst("Dec", "");
                     }
                     if (entity.getMetadataMap().containsKey("day")) {
                         day = entity.getMetadataMap().get("day");
                         time = time.replaceFirst(day, "");
                         time = time.replaceFirst("일", "");
+                        time = time.replaceFirst("th", "");
                     }
                     time = time.replaceFirst("at", "");
                     time = time.replaceFirst("am", "");
                     time = time.replaceFirst("pm", "");
                     time = time.replaceFirst("'o Clock", "");
                     time = time.replaceAll("\\.", "");
-                    if (time.equals(" ")) {
+                    time = time.replaceAll(",", "");
+                    time = time.trim();
+                    if (time.equals(" ") || time.equals("")) {
                         time = null;
-                    } else {
-                        time = time.trim();
                     }
                 }
             }
@@ -104,6 +105,7 @@ public class ScheduleService {
         return ScheduleSaveRequestDto.builder()
                 .event(event)
                 .location(location)
+                .year(year)
                 .month(month)
                 .day(day)
                 .time(time)
